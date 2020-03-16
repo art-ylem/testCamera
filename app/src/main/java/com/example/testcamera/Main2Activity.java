@@ -30,7 +30,7 @@ public class Main2Activity extends AppCompatActivity {
     HolderCallback holderCallback;
     Camera camera;
     private ImageView plusHelper, minusHelper;
-    final int CAMERA_ID = 0;
+    final int CAMERA_ID = 1;
     final boolean FULL_SCREEN = true;
     private int zoomValue = 0;
     public int backFront = 0;
@@ -63,15 +63,18 @@ public class Main2Activity extends AppCompatActivity {
 
         if(camera.getParameters().getZoom() < 40) {
             Log.e("TAG", "incrementZoom: ");
-            camera.stopPreview();
+//            camera.stopPreview();
             Camera.Parameters parameters = camera.getParameters();
             int currZoom = camera.getParameters().getZoom();
             currZoom+=5;
             parameters.setZoom(currZoom);
             Camera.Parameters pt = camera.getParameters();
             pt.setZoom(parameters.getZoom());
+            Log.e("TAG", "incrementZoom: " + camera.getParameters().getColorEffect() );
+            Log.e("TAG", "incrementZoom: " + camera.getParameters().getSupportedColorEffects() );
+            pt.setColorEffect(Camera.Parameters.EFFECT_NEGATIVE);
             camera.setParameters(pt);
-            camera.startPreview();
+//            camera.startPreview();
             zoomValue++;
         }
     }
@@ -81,15 +84,16 @@ public class Main2Activity extends AppCompatActivity {
         if(camera.getParameters().getZoom()>=1) {
             Log.e("TAG", "decrementZoom: ");
 
-            camera.stopPreview();
+//            camera.stopPreview();
             Camera.Parameters parameters = camera.getParameters();
             int currZoom = camera.getParameters().getZoom();
             currZoom-=5;
             parameters.setZoom(currZoom);
             Camera.Parameters pt = camera.getParameters();
             pt.setZoom(parameters.getZoom());
+            pt.setRotation(230);
             camera.setParameters(pt);
-            camera.startPreview();
+//            camera.startPreview();
             zoomValue--;
         }
     }
